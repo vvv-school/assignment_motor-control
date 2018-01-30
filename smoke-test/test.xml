@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Test assignment motor control">
+    <description>Testing the motor control assignment</description>
+    <environment></environment>
+    <fixture param="--fixture fixture.xml"> yarpmanager </fixture>
+    <test type="dll"> TestAssignmentMotorControl</test>
+</suite>
+
