@@ -39,7 +39,7 @@ In particular, to complete this assignment you have to:
 
 By the way, just follow the `FILL IN THE CODE` comments inside the code and it will be **easy-peasy** :smirk:
 
-:warning: **You have not to be worried about the connections between ports, they have NOT to be established inside the modules** :warning:
+:warning: **You have not to be worried about the connections between ports, they have NOT to be established inside the modules**
 
 Once done, you can test your code running the script [**test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory. This will give you an idea of how many points you might score. :muscle:
 
@@ -64,6 +64,6 @@ Here's the score map:
 | Cosine similarity >  0.0 | 2 |
 | Cosine similarity >  0.5 | 4 |
 | Norm ratio == 1          | 4 |
-| **Maximum score**        | 12 |
+| **Maximum score**        | 12 :trophy: |
 
 # [How to complete the assignment](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-complete-assignments.md)
