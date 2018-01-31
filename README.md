@@ -45,9 +45,9 @@ Once done, you can test your code running the script [**test.sh**](https://githu
 
 ### Grading :chart_with_upwards_trend:
 
-The **smoke-test** test the *similarity* between the movements of the right and left arm of iCub.
+The **smoke-test** evaluates the *similarity* between the movements of the right and left arm of iCub.
 
-In particular, it records _n_ values from the encoders of both arms storing them in **A** and **B** respectively, to then compute the similarity by means of the formula below:
+In particular, it records _n_ values from the encoders of both arms storing them in the **A** and **B** vectors referenced below, respectively, to then calculate the similarity by means of the following formula:
 
 ![](misc/cosineSimilarity.png)
 
