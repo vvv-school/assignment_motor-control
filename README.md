@@ -21,7 +21,7 @@ During this assignment, you will be provided with the system described in the fo
 
 ![](misc/MotorControlAssignment.png)
 
-In this system, the **Trigger** moves the **joint 2** of *iCub_SIM* `right_arm` periodically, between **X** and **-X**s and sends to the **Client** a signal for waking it up. 
+In this system, the **Trigger** moves the **joint 2** of *iCub_SIM* `right_arm` periodically, between **X** and **-X**, and sends to the **Client** a signal for waking it up. 
 
 Then, once the **Client** wakes up, it sends to the **Server** the angle **X** every period **T**.
 
