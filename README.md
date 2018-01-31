@@ -23,23 +23,23 @@ During this assignment you will face with the system described by the following 
 
 In this system the **Trigger** move the **joint 2** of *iCub_SIM* `right_arm` periodically between **X** and **-X** and send to the **Client** a signal to wake up. 
 
-Then the **Client** as soon as is waken up by the **Trigger**, sends to the **Server** every period **T** the angle **X**.
+Then the **Client**, once wake up, sends to the **Server** the angle **X** every period **T**.
 
 The **Server** has to take that angle and move the **joint 2** of iCub_SIM `left_arm`.  
 
 ### TODO :wrench: :nut_and_bolt:
-You have to modify the code provided in order to make **Server** moving the left arm with the same amplitude and period of the movement of the right_arm that is controlled by the **Trigger** module.
+You have to modify the code provided in order to make **Server** moving the `left_arm` with the same amplitude and period of the movement of the `right_arm` that is controlled by the **Trigger** module.
 
 **Trigger** is already provided perfectly working :ok_hand: **Don't touch it !** :knife:
 
 In particular to complete this assignment you have to:
-- Modify `client.cpp` implementing the comunication part for receiving the trigger and sending the anfle to the **Server**
+- Modify `client.cpp` implementing the comunication part for receiving the trigger and sending the angle to the **Server**
 - Modify `server.cpp` implementing the comunication part for receiving the angle by the **Client** and move the left arm
 - Find the correct values of **X** and **T**
 
 BTW just follow the `FILL IN THE CODE` comments inside the code and it wil be **easy-peasy** :wink:
 
-:warning: :warning: **You have not to worry about the connections between ports, they have NOT to be done inside the modules** :warning: :warning:
+:warning: **You have not to worry about the connections between ports, they have NOT to be done inside the modules** :warning:
 
 Once done, you can test your code using running the script [**test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory. This will give you an idea of how many points you might score. :muscle:
 
