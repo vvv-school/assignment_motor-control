@@ -42,7 +42,11 @@ Once done, you can test your code using running the script [**test.sh**](https:/
 
 The **smoke-test** test the *similarity* between the movement of the right and left arm of iCub.
 In particular it records n values from the encoder of both arms and store them in **A** and **B** respectively and it computes the similarity through this formula:
+
+
 ![](misc/cosineSimilarity.png)
+
+
 The **cosine similarity** is equal to -1 if the movement of the arms are completely in counter-phase, equal to 1 if the movements are in phase.
 This measures how much **T** chose by you is close to the one of the **Trigger** module.
 Morever the test check that the ratio of the norms of **A** and **B** is ~ 1; it allow us to see if the value **A** you set is correct.
