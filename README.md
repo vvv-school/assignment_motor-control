@@ -11,9 +11,12 @@ For this assignment, you just need to be aware of:
 # Assignment
 Let's make iCub wave :wave: !
 ![](waving.gif)
-### Scenario :robot_face
+### Scenario
 During this assignment you will face with the system described by the following diagram:
+
 ![](misc/MotorControlAssignment.png)
+
+
 In this system the **Trigger** move the **joint 2** of *iCub_SIM* `right_arm` periodically between **A** and **-A** and send to the **Client** a signal to wake it up. 
 
 Then the **Client** as soon as is waken up by the **Trigger**, sends to the **Server** every period **T** the angle **A**.
