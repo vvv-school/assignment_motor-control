@@ -51,8 +51,10 @@ The **cosine similarity** is equal to -1 if the movement of the arms are complet
 This measures how much **T** chose by you is close to the one of the **Trigger** module.
 Morever the test check that the ratio of the norms of **A** and **B** is ~ 1; it allow us to see if the value **A** you set is correct.
 Here the score map:
-| Requirements | Points |
-|:---:|:---:|
+
+
+| Requirements             | Points |
+|:------------------------:|:-:|
 | Cosine similarity > -1.0 | 1 |
 | Cosine similarity > -0.5 | 1 |
 | Cosine similarity >  0.0 | 2 |
