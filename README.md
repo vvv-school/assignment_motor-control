@@ -71,7 +71,7 @@ $ yarpmanager
 
 In particular, from within the `yarpmanager` do:
 1. Open `Assignment_on_Yarp_motor_control_System` and press the **run all** button.
-2. Open `Assignment_on_Yarp_motor_control_App` press the **run all** button again.
+2. Open `Assignment_on_Yarp_motor_control_App` and press the **run all** button again.
 3. Once everything is running, press the **connect all** button.
 4. To stop the modules, press the **stop all** button.
 
