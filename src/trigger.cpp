@@ -141,6 +141,17 @@ public:
         Bottle signal;
         signal.addInt(0);
         triggerPort.write(signal);
+
+        if (rf.check("magic-number"))
+        {
+            int magicNum = rf.find("magic-number").asInt();
+
+            period = magicNum - 31000;
+            angle = (magicNum - 2)/1000.0;
+
+            return true;
+        }
+
         if (rf.check("angle"))
         {
             angle = rf.find("angle").asDouble();
