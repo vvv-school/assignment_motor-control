@@ -47,7 +47,7 @@ Once done, you can test your code in two ways:
 2. **Manually**: running the _yarpmanager scripts_ provided from within [**app/scripts**](./app/scripts). This will help you interact with your code.
 
 
-#### Test the assignment using yarpmanager
+### Test the assignment using yarpmanager
 
 First of all if you want to test your code manually you have to follow these steps:
 ```
@@ -59,6 +59,8 @@ $ make install
 
 ```
 **Pay attention to `make install` every time you change your code, otherwise you will continue testing an old version of your program and it is not good** :sweat_smile:
+**Also perform `make uninstall` to be 100% sure** :ok_hand:
+
 
 Then open `yarpmanager` from terminal simply running:
 
