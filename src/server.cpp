@@ -132,7 +132,7 @@ public:
         config_ok = configDevice();
 
         // configure the ports
-        config_ok = config_ok && configPorts();
+        config_ok = configPorts() && config_ok;
 
         return config_ok;
     }
