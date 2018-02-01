@@ -58,8 +58,7 @@ $ make
 $ make install
 
 ```
-**Pay attention to `make install` every time you change your code, otherwise you will continue testing an old version of your program and it is not good** :sweat_smile:
-**Also perform `make uninstall` to be 100% sure** :ok_hand:
+**Pay attention to `make uninstall && make install` every time you change your code, otherwise you risk to test an old version of your program and it is not good** :sweat_smile:
 
 
 Then open `yarpmanager` from terminal simply running:
