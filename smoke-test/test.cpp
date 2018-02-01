@@ -37,7 +37,7 @@ private:
 public:
     /******************************************************************/
     TestAssignmentMotorControl() :
-        yarp::rtf::TestCase("TestAssignmentProducerConsumer"), iterations(1000){ }
+        yarp::rtf::TestCase("TestAssignmentMotorControl"), iterations(1000){ }
 
     /******************************************************************/
 
@@ -100,6 +100,23 @@ public:
     virtual void run()
     {
         unsigned int score=0;
+
+        double home_joint2 = 0.0;
+        double diff = 0.0;
+
+        bool portsOpened = NetworkBase::exists("/client/input")  &&
+                           NetworkBase::exists("/client/output") &&
+                           NetworkBase::exists("/server/input");
+
+        RTF_TEST_CHECK(portsOpened, "Checking that all ports has been opend correctly...");
+
+        if (portsOpened)
+        {
+            RTF_TEST_REPORT("Ports opened correctly, +1 points");
+            score += 1;
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+        }
+
         RTF_TEST_REPORT("Reading data from the encoders...");
         for (int i=0; i<iterations; i++)
         {
@@ -107,13 +124,28 @@ public:
             Bottle* botR = portR.read();
             if (botL && botR)
             {
-                encL.push_back(botL->get(2).asDouble());
-                encR.push_back(botR->get(2).asDouble());
+                double angL = botL->get(2).asDouble();
+                double angR = botR->get(2).asDouble();
+
+                // Checking that the left arm is actually moving...
+                diff = diff + std::fabs(angL - home_joint2);
+
+                encL.push_back(angL);
+                encR.push_back(angR);
             }
             else
             {
                 RTF_ASSERT_ERROR_IF_FALSE(botL && botR, "Cannot read from the ports");
             }
+        }
+
+        RTF_TEST_CHECK(diff > 5.0, "Checking that the left arm is moving...");
+
+        if (diff > 5.0)
+        {
+            score += 1;
+            RTF_TEST_REPORT("The left arm is moving, +1 points");
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         double cosSim = cosine_similarity(encL, encR);
@@ -124,28 +156,28 @@ public:
         {
             RTF_TEST_REPORT("Cosine similarity > -1.0, +1 points");
             score += 1;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/12 ***** ", score));
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         if (cosSim > -0.5)
         {
             RTF_TEST_REPORT("Cosine similarity > -0.5, +1 points");
             score += 1;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/12 ***** ", score));
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         if (cosSim > 0.0)
         {
             RTF_TEST_REPORT("Cosine similarity > 0.0, +2 points");
             score += 2;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/12 ***** ", score));
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         if (cosSim > 0.5)
         {
             RTF_TEST_REPORT("Cosine similarity > 0.5, +4 points");
             score += 4;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/12 ***** ", score));
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         double normRatio =  norm(encL)/norm(encR);
@@ -156,7 +188,7 @@ public:
         {
             RTF_TEST_REPORT("Norm ratio == 1, +4 points");
             score += 4;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/12 ***** ", score));
+            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         RTF_TEST_CHECK(score>0,Asserter::format("Total score = %d",score));
