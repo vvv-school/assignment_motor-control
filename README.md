@@ -41,7 +41,47 @@ By the way, just follow the `FILL IN THE CODE` comments inside the code and it w
 
 :warning: **You have not to be worried about the connections between ports, they have NOT to be established inside the modules**
 
-Once done, you can test your code running the script [**test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory. This will give you an idea of how many points you might score. :muscle:
+Once done, you can test your code in two ways:
+
+1. **Automatically**: running the script [**test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory. This will give you an idea of how many points you might score. :muscle:
+2. **Manually**: running the _yarpmanager scripts_ provided from within [**app/scripts**](./app/scripts). This will help you interact with your code.
+
+
+#### Test the assignment using yarpmanager
+
+First of all if you want to test your code manually you have to follow these steps:
+```
+$ cd assignment_motor-control-<username>
+$ cmake ..
+$ mkdir build && cd build
+$ make
+$ make install
+
+```
+**Pay attention to `make install` every time you change your code, otherwise you will continue testing an old version of your program and it is not good** :sweat_smile:
+
+Then open `yarpmanager` from terminal simply running:
+
+```
+$ yarpmanager
+
+```
+(I suggest to disable the automatic reload how is shown in the following figure)
+
+
+![](misc/yarpmanagerAutoreload.png)
+
+
+In particular if you want to test your work you have to:
+
+1. Open `Assignment_on_Yarp_motor_control_System` and press **run all** button.
+2. Open `Assignment_on_Yarp_motor_control_App` press **run all**.
+3. Once everything is running press **connect all** button.
+4. To stop the modules press **stop all** button.
+
+The following figure displays where the **xxx all** buttons are located
+
+![](misc/yarpmanagerApp.png)
 
 ### Grading :chart_with_upwards_trend:
 
@@ -59,11 +99,13 @@ Here's the score map:
 
 | Requirements             | Points |
 |:------------------------:|:-:|
+| Open all requested ports | 1 |
+| Move the arm             | 1 |
 | Cosine similarity > -1.0 | 1 |
 | Cosine similarity > -0.5 | 1 |
 | Cosine similarity >  0.0 | 2 |
 | Cosine similarity >  0.5 | 4 |
 | Norm ratio == 1          | 4 |
-| **Maximum score**        | 12 :trophy: |
+| **Maximum score**        | 14 :trophy: |
 
 # [How to complete the assignment](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-complete-assignments.md)
