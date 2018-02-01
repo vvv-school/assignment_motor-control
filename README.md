@@ -46,41 +46,36 @@ Once done, you can test your code in two ways:
 1. **Automatically**: running the script [**test.sh**](https://github.com/vvv-school/vvv-school.github.io/blob/master/instructions/how-to-run-smoke-tests.md) in the **smoke-test** directory. This will give you an idea of how many points you might score. :muscle:
 2. **Manually**: running the _yarpmanager scripts_ provided from within [**app/scripts**](./app/scripts). This will help you interact with your code.
 
-
 ### Test the assignment using yarpmanager
 
-First of all if you want to test your code manually you have to follow these steps:
+First of, if you aim to test your code manually, then you have to follow these steps:
 ```bash
 $ cd assignment_motor-control-<username>
 $ mkdir build && cd build
 $ cmake ..
 $ make
 $ make install
-
 ```
-**Pay attention to `make uninstall && make install` every time you change your code, otherwise you risk to test an old version of your program and it is not good** :sweat_smile:
 
+:warning: **Pay attention to the step `make uninstall && make install` every time you change your code; the risk is testing an old version of your program** :sweat_smile:
 
-Then open `yarpmanager` from terminal simply running:
+Then, open `yarpmanager` from the terminal by simply running:
 
 ```bash
 $ yarpmanager
-
 ```
-(I suggest to disable the automatic reload how is shown in the following figure)
 
+(Hint: disable the automatic reload as is shown in the following figure)
 
 ![](misc/yarpmanagerAutoreload.png)
 
+In particular, from within the `yarpmanager` do:
+1. Open `Assignment_on_Yarp_motor_control_System` and press the **run all** button.
+2. Open `Assignment_on_Yarp_motor_control_App` press the **run all** button again.
+3. Once everything is running, press the **connect all** button.
+4. To stop the modules, press the **stop all** button.
 
-In particular if you want to test your work you have to:
-
-1. Open `Assignment_on_Yarp_motor_control_System` and press **run all** button.
-2. Open `Assignment_on_Yarp_motor_control_App` press **run all**.
-3. Once everything is running press **connect all** button.
-4. To stop the modules press **stop all** button.
-
-The following figure displays where the **xxx all** buttons are located
+The following figure displays where the buttons are located:
 
 ![](misc/yarpmanagerApp.png)
 
