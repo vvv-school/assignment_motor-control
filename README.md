@@ -50,10 +50,10 @@ Once done, you can test your code in two ways:
 ### Test the assignment using yarpmanager
 
 First of all if you want to test your code manually you have to follow these steps:
-```
+```bash
 $ cd assignment_motor-control-<username>
-$ cmake ..
 $ mkdir build && cd build
+$ cmake ..
 $ make
 $ make install
 
@@ -63,7 +63,7 @@ $ make install
 
 Then open `yarpmanager` from terminal simply running:
 
-```
+```bash
 $ yarpmanager
 
 ```
