@@ -1,0 +1,49 @@
+<application>
+    <name>Assignment on Yarp motor control App</name>
+    <description>A fixture to prepare components required for the assignment</description>
+    <version>1.0</version>
+    <authors>
+        <author email="nicolo.genesio@iit.it">Nicolo' Genesio</author>
+    </authors>
+    <module>
+        <name>server</name>
+        <dependency>
+            <port timeout="30">/icubSim/left_arm</port>
+            <port timeout="30">/client/output</port>
+        </dependency>
+        <ensure>
+            <wait when='start'> 2 </wait>
+        </ensure>
+        <node>localhost</node>
+    </module>
+    <module>
+        <name>client</name>
+        <parameters>--angle -15.0 --period 1.0</parameters>
+        <node>localhost</node>
+        <ensure>
+            <wait when='stop'> 2 </wait>
+            <wait when='start'> 1 </wait>
+        </ensure>
+    </module>
+    <module>
+        <name>trigger</name>
+        <parameters>--magic-number 31002</parameters>
+        <dependency>
+            <port timeout="30">/icubSim/right_arm</port>
+        </dependency>
+        <ensure>
+            <wait when='stop'> 3 </wait>
+        </ensure>
+        <node>localhost</node>
+  </module> 
+    <connection>
+        <from>/client/output</from>
+        <to>/server/input</to>
+        <protocol>tcp</protocol>
+    </connection>
+    <connection>
+        <from>/trigger/output</from>
+        <to>/client/input</to>
+        <protocol>tcp</protocol>
+    </connection>
+</application>
