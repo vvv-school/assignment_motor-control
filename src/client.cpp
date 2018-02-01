@@ -94,6 +94,7 @@ public:
             // read from the input port the signal from the
             // trigger for starting to send data to the server
             // FILL IN CODE
+            triggered = true;
         }
 
         // once triggered prepare the bottle containing the
