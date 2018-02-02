@@ -96,28 +96,50 @@ public:
            return false;
         }
 
-        // set ref speed
-
-        ipos->setRefSpeed(2, 40.0);
-
-        ipos->setRefSpeed(0, 40.0);
-        ipos2->setRefSpeed(0, 40.0);
-        ipos->setRefSpeed(4, 40.0);
-        ipos2->setRefSpeed(4, 40.0);
-
-        // get joint's limits
-        ilim->getLimits(2, &min, &max);
         // tell the device we aim to control
         // in position mode all the joints
         ienc->getAxes(&nAxes);
         vector<int> modes(nAxes,VOCAB_CM_POSITION);
         imod->setControlModes(modes.data());
 
+        // set ref speed
+
+        ipos->setRefSpeed(2, 40.0);
+
+        ipos->setRefSpeed(0, 60.0);
+        ipos2->setRefSpeed(0, 60.0);
+        ipos->setRefSpeed(4, 60.0);
+        ipos2->setRefSpeed(4, 60.0);
+
+        // get joint's limits
+        ilim->getLimits(2, &min, &max);
+
         // move iCub to the starting pose
         ipos->positionMove(0, -90.0);
         ipos2->positionMove(0, -90.0);
         ipos->positionMove(4, 60.0);
         ipos2->positionMove(4, 60.0);
+
+        bool idle1 = false; bool idle2 = false;
+        bool idle3 = false; bool idle4 = false;
+
+        double start = yarp::os::Time::now();
+
+        while (!idle1 || !idle2 || !idle3 || !idle4)
+        {
+            ipos->checkMotionDone(0, &idle1);
+            ipos->checkMotionDone(4, &idle2);
+            ipos2->checkMotionDone(0, &idle3);
+            ipos2->checkMotionDone(4, &idle4);
+            // 10 sec of timeout
+            if ((yarp::os::Time::now() - start) > 10.0)
+            {
+                yError()<<"CheckMotionDone gone in timeout";
+                return false;
+            }
+            yarp::os::Time::delay(0.4);
+
+        }
 
         return true;
     }
