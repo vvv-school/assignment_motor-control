@@ -18,21 +18,18 @@
     </module>
     <module>
         <name>server</name>
-        <dependency>
-            <port timeout="30">/icubSim/left_arm</port>
-            <port timeout="30">/client/output</port>
-        </dependency>
-        <ensure>
-            <wait when='start'> 5 </wait>
-        </ensure>
+        <dependencies>
+            <port timeout="20">/icubSim/left_arm/rpc:i</port>
+            <port timeout="20">/trigger/output</port>
+        </dependencies>
         <node>testnode</node>
     </module>
     <module>
         <name>trigger</name>
         <parameters>--angle 31.0 --period 2.0</parameters>
-        <dependency>
-            <port timeout="30">/icubSim/right_arm</port>
-        </dependency>
+        <dependencies>
+            <port timeout="30">/icubSim/right_arm/rpc:i</port>
+        </dependencies>
         <ensure>
             <wait when='start'> 3 </wait>
         </ensure>
