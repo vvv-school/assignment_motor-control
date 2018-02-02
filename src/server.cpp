@@ -146,7 +146,7 @@ public:
     /****************************************************/
     bool close()
     {
-        // close the port
+        // close the port and close the PolyDriver
         // FILL IN THE CODE
         return true;
     }
