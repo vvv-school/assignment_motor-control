@@ -7,12 +7,12 @@
     </authors>
     <module>
         <name>server</name>
-        <dependency>
-            <port timeout="30">/icubSim/left_arm</port>
-            <port timeout="30">/client/output</port>
-        </dependency>
+        <dependencies>
+          <port timeout="20">/trigger/output</port>
+          <port timeout="20">/icubSim/left_arm/rpc:i</port>
+        </dependencies>
         <ensure>
-            <wait when='start'> 2 </wait>
+            <wait when='start'> 1 </wait>
         </ensure>
         <node>localhost</node>
     </module>
@@ -22,15 +22,15 @@
         <node>localhost</node>
         <ensure>
             <wait when='stop'> 2 </wait>
-            <wait when='start'> 1 </wait>
+            <wait when='start'> 3 </wait>
         </ensure>
     </module>
     <module>
         <name>trigger</name>
         <parameters>--magic-number 31002</parameters>
-        <dependency>
-            <port timeout="30">/icubSim/right_arm</port>
-        </dependency>
+        <dependencies>
+            <port timeout="20">/icubSim/right_arm/rpc:i</port>
+        </dependencies>
         <ensure>
             <wait when='stop'> 3 </wait>
         </ensure>
