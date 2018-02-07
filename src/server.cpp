@@ -117,7 +117,7 @@ public:
         // in position mode all the joints
         // FILL IN THE CODE
 
-        // set ref speed for the target joint
+        // set ref speed for the joint 2 to 40.0 deg/s
         // FILL IN THE CODE
 
         return true;
