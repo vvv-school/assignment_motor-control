@@ -163,8 +163,8 @@ public:
         {
             int magicNum = rf.find("magic-number").asInt();
 
-            period = magicNum - 31000;
-            angle = (magicNum - 2)/1000.0;
+            period = magicNum - 26000;
+            angle = (magicNum - period)/1000.0;
 
             return true;
         }
