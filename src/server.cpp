@@ -30,7 +30,6 @@ private:
     IControlLimits2                 *ilim;
 
     double                          min, max;
-    bool                            idle;
     int                             nAxes;
 
 
@@ -58,22 +57,16 @@ private:
             }
 
             // check that "angle" is inside the joint
-            // limits before moving
+            // limits before moving, if so move the arm
             // FILL IN CODE
 
-            if (idle)
-            {
-                // move the arm passing "angle"
-                // FIll IN CODE
-                idle = false;
-            }
         }
     }
 
 public:
 
     ServerMod() : imod(nullptr), ienc(nullptr), ipos(nullptr), ilim(nullptr),
-      min(0.0), max(0.0), idle(true), nAxes(0)
+      min(0.0), max(0.0), nAxes(0)
     {}
     /****************************************************/
     bool configPorts()
@@ -168,9 +161,6 @@ public:
         // FILL IN THE CODE
         if (bot)
         {
-            // check that the movement requested has been done and
-            // update the boolean variable "idle"
-            // FILL IN THE CODE
             // try to move the arm
             moveArm(bot);
         }

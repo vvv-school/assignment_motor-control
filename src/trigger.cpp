@@ -26,7 +26,6 @@ private:
     IControlLimits2                 *ilim;
 
     double                          min, max, angle, period;
-    bool                            idle;
     int                             nAxes;
 
 
@@ -44,18 +43,14 @@ private:
                 return;
             }
 
-            if (idle)
-            {
-                ipos->positionMove(2, angle);
-                idle = false;
-            }
+            ipos->positionMove(2, angle);
         }
     }
 
 public:
 
     TriggerMod() : imod(nullptr), ienc(nullptr), ipos(nullptr), ipos2(nullptr),
-      ilim(nullptr), min(0.0), max(0.0), angle(0.0), period(0.0), idle(true), nAxes(0)
+      ilim(nullptr), min(0.0), max(0.0), angle(0.0), period(0.0), nAxes(0)
     {}
 
     /****************************************************/
@@ -168,8 +163,8 @@ public:
         {
             int magicNum = rf.find("magic-number").asInt();
 
-            period = magicNum - 31000;
-            angle = (magicNum - 2)/1000.0;
+            period = magicNum - 26000;
+            angle = (magicNum - period)/1000.0;
 
             return true;
         }
@@ -208,7 +203,7 @@ public:
     /****************************************************/
     bool updateModule()
     {
-        ipos->checkMotionDone(2, &idle);
+
         moveArm();
 
         return true;

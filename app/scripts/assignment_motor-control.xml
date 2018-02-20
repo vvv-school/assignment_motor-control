@@ -29,7 +29,7 @@
     </module>
     <module>
         <name>trigger</name>
-        <parameters>--magic-number 31002</parameters>
+        <parameters>--magic-number 26002</parameters>
         <dependencies>
             <port timeout="20">/icubSim/right_arm/rpc:i</port>
         </dependencies>

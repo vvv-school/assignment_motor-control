@@ -26,7 +26,7 @@
     </module>
     <module>
         <name>trigger</name>
-        <parameters>--angle 31.0 --period 2.0</parameters>
+        <parameters>--angle 26.0 --period 2.0</parameters>
         <dependencies>
             <port timeout="30">/icubSim/right_arm/rpc:i</port>
         </dependencies>
