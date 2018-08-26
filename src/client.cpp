@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include <yarp/os/Network.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Port.h>
@@ -6,9 +8,9 @@
 #include <yarp/os/RFModule.h>
 
 #include <yarp/dev/PolyDriver.h>
-#include <yarp/dev/IControlMode2.h>
+#include <yarp/dev/IControlMode.h>
 #include <yarp/dev/IEncoders.h>
-#include <yarp/dev/IPositionControl2.h>
+#include <yarp/dev/IPositionControl.h>
 
 using namespace std;
 using namespace yarp::os;
@@ -111,7 +113,7 @@ int main(int argc, char *argv[]) {
     if (!yarp.checkNetwork())
     {
         yError()<<"YARP doesn't seem to be available";
-        return 1;
+        return EXIT_FAILURE;
     }
 
     ResourceFinder rf;

@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include <yarp/os/Network.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Port.h>
@@ -6,10 +8,10 @@
 #include <yarp/os/RFModule.h>
 
 #include <yarp/dev/PolyDriver.h>
-#include <yarp/dev/IControlMode2.h>
+#include <yarp/dev/IControlMode.h>
 #include <yarp/dev/IEncoders.h>
-#include <yarp/dev/IPositionControl2.h>
-#include <yarp/dev/IControlLimits2.h>
+#include <yarp/dev/IPositionControl.h>
+#include <yarp/dev/IControlLimits.h>
 
 using namespace std;
 using namespace yarp::os;
@@ -24,10 +26,10 @@ private:
     // FILL IN THE CODE
 
     PolyDriver                       driver;
-    IControlMode2                   *imod;
+    IControlMode                    *imod;
     IEncoders                       *ienc;
-    IPositionControl2               *ipos;
-    IControlLimits2                 *ilim;
+    IPositionControl                *ipos;
+    IControlLimits                  *ilim;
 
     double                          min, max;
     int                             nAxes;
@@ -175,7 +177,7 @@ int main(int argc, char *argv[]) {
     if (!yarp.checkNetwork())
     {
         yError()<<"YARP doesn't seem to be available";
-        return 1;
+        return EXIT_FAILURE;
     }
 
     ResourceFinder rf;

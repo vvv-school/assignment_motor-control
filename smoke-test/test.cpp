@@ -70,8 +70,6 @@ public:
 
     /******************************************************************/
     virtual bool setup(yarp::os::Property& property) {
-
-
         Contact contactL("/TestAssignmentProducerConsumer/left");
         Contact contactR("/TestAssignmentProducerConsumer/right");
         contactL.setTimeout(5.0);

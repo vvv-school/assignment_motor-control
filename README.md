@@ -9,8 +9,9 @@ For this assignment, you just need to be aware of:
 - [YARP devices](http://www.yarp.it/yarpdev.html)
     - some Yarp Motor Interfaces:
         - [yarp::dev::IEncoders](http://www.yarp.it/classyarp_1_1dev_1_1IEncoders.html)
-        - [yarp::dev::IPositionControl2](http://www.yarp.it/classyarp_1_1dev_1_1IPositionControl2.html)
-        - [yarp::dev::IControlMode2](http://www.yarp.it/classyarp_1_1dev_1_1IControlMode2.html)
+        - [yarp::dev::IControlMode](http://yarp.it/classyarp_1_1dev_1_1IControlMode.html)
+        - [yarp::dev::IPositionControl](http://yarp.it/classyarp_1_1dev_1_1IPositionControl.html)
+
 # Assignment
 Let's make iCub wave :wave: !
 
@@ -21,7 +22,7 @@ During this assignment, you will be provided with the system described in the fo
 
 ![](misc/MotorControlAssignment.png)
 
-In this system, the **Trigger** moves the **joint 2** of *iCub_SIM* `right_arm` periodically, between **X** and **-X**, and sends to the **Client** a signal for waking it up. 
+In this system, the **Trigger** moves the **joint 2** of *iCub_SIM* `right_arm` periodically, between **X** and **-X**, and sends to the **Client** a signal for waking it up.
 
 Then, once the **Client** wakes up, it sends to the **Server** the angle **X** every period **T**.
 

@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include <yarp/os/Network.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Port.h>
@@ -6,10 +8,10 @@
 #include <yarp/os/RFModule.h>
 
 #include <yarp/dev/PolyDriver.h>
-#include <yarp/dev/IControlMode2.h>
+#include <yarp/dev/IControlMode.h>
 #include <yarp/dev/IEncoders.h>
-#include <yarp/dev/IPositionControl2.h>
-#include <yarp/dev/IControlLimits2.h>
+#include <yarp/dev/IPositionControl.h>
+#include <yarp/dev/IControlLimits.h>
 
 using namespace std;
 using namespace yarp::os;
@@ -20,10 +22,10 @@ class TriggerMod : public yarp::os::RFModule
 private:
     Port                             triggerPort;
     PolyDriver                       driver, driver2;
-    IControlMode2                   *imod;
+    IControlMode                    *imod;
     IEncoders                       *ienc;
-    IPositionControl2               *ipos, *ipos2;
-    IControlLimits2                 *ilim;
+    IPositionControl                *ipos, *ipos2;
+    IControlLimits                  *ilim;
 
     double                          min, max, angle, period;
     int                             nAxes;
@@ -79,9 +81,9 @@ public:
         if (!driver2.open(option))
         {
             yError()<<"Unable to open the device driver";
+            driver.close();
             return false;
         }
-
 
         // open the views
         if (!driver.view(imod) || !driver.view(ienc) || !driver.view(ipos) || !driver.view(ilim)
@@ -98,7 +100,6 @@ public:
         imod->setControlModes(modes.data());
 
         // set ref speed
-
         ipos->setRefSpeed(2, 40.0);
 
         ipos->setRefSpeed(0, 60.0);
@@ -154,7 +155,6 @@ public:
             yarp::os::Time::delay(0.3);
         }
 
-
         Bottle signal;
         signal.addInt(0);
         triggerPort.write(signal);
@@ -191,6 +191,8 @@ public:
     /****************************************************/
     bool close()
     {
+        driver.close();
+        driver2.close();
         return true;
     }
 
@@ -203,9 +205,7 @@ public:
     /****************************************************/
     bool updateModule()
     {
-
         moveArm();
-
         return true;
     }
 
@@ -216,7 +216,7 @@ int main(int argc, char *argv[]) {
     if (!yarp.checkNetwork())
     {
         yError()<<"YARP doesn't seem to be available";
-        return 1;
+        return EXIT_FAILURE;
     }
 
     ResourceFinder rf;
@@ -226,4 +226,3 @@ int main(int argc, char *argv[]) {
     TriggerMod mod;
     return mod.runModule(rf);
 }
-
