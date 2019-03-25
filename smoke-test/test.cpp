@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <numeric>
 
-#include <yarp/rtf/TestCase.h>
-#include <rtf/dll/Plugin.h>
-#include <rtf/TestAssert.h>
+#include <yarp/robottestingframework/TestCase.h>
+#include <robottestingframework/dll/Plugin.h>
+#include <robottestingframework/TestAssert.h>
 
 
 #include <yarp/os/all.h>
@@ -20,7 +20,7 @@
 #include <yarp/math/Math.h>
 
 using namespace std;
-using namespace RTF;
+using namespace robottestingframework;
 using namespace yarp::os;
 using namespace yarp::dev;
 using namespace yarp::sig;
@@ -28,7 +28,7 @@ using namespace yarp::math;
 
 
 /**********************************************************************/
-class TestAssignmentMotorControl : public yarp::rtf::TestCase
+class TestAssignmentMotorControl : public yarp::robottestingframework::TestCase
 {
 private:
         BufferedPort<Bottle> portL, portR;
@@ -37,7 +37,7 @@ private:
 public:
     /******************************************************************/
     TestAssignmentMotorControl() :
-        yarp::rtf::TestCase("TestAssignmentMotorControl"), iterations(1000){ }
+        yarp::robottestingframework::TestCase("TestAssignmentMotorControl"), iterations(1000){ }
 
     /******************************************************************/
 
@@ -75,19 +75,19 @@ public:
         contactL.setTimeout(5.0);
         contactR.setTimeout(5.0);
         // Open ports
-        RTF_ASSERT_ERROR_IF_FALSE(portL.open(contactL), "Cannot open the test port (left)");
-        RTF_ASSERT_ERROR_IF_FALSE(portR.open(contactR), "Cannot open the test port (right)");
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(portL.open(contactL), "Cannot open the test port (left)");
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(portR.open(contactR), "Cannot open the test port (right)");
         // Connect to read the robot's encoders
-        RTF_ASSERT_ERROR_IF_FALSE(NetworkBase::connect("/icubSim/left_arm/state:o", portL.getName()),
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(NetworkBase::connect("/icubSim/left_arm/state:o", portL.getName()),
                                       "Cannot connect to /icubSim/left_arm/state:o");
-        RTF_ASSERT_ERROR_IF_FALSE(NetworkBase::connect("/icubSim/right_arm/state:o", portR.getName()),
+        ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(NetworkBase::connect("/icubSim/right_arm/state:o", portR.getName()),
                                       "Cannot connect to /icubSim/left_arm/state:o");
         return true;
     }
 
     /******************************************************************/
     virtual void tearDown() {
-        RTF_TEST_REPORT("Tearing down TestAssignmentProducerConsumer");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Tearing down TestAssignmentProducerConsumer");
         NetworkBase::disconnect("/icubSim/left_arm/state:o", portL.getName());
         NetworkBase::disconnect("/icubSim/right_arm/state:o", portR.getName());
         portL.close();
@@ -106,16 +106,16 @@ public:
                            NetworkBase::exists("/client/output") &&
                            NetworkBase::exists("/server/input");
 
-        RTF_TEST_CHECK(portsOpened, "Checking that all ports has been opend correctly...");
+        ROBOTTESTINGFRAMEWORK_TEST_CHECK(portsOpened, "Checking that all ports has been opend correctly...");
 
         if (portsOpened)
         {
-            RTF_TEST_REPORT("Ports opened correctly, +1 points");
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("Ports opened correctly, +1 points");
             score += 1;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
-        RTF_TEST_REPORT("Reading data from the encoders...");
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT("Reading data from the encoders...");
         for (int i=0; i<iterations; i++)
         {
             Bottle* botL = portL.read();
@@ -133,63 +133,63 @@ public:
             }
             else
             {
-                RTF_ASSERT_ERROR_IF_FALSE(botL && botR, "Cannot read from the ports");
+                ROBOTTESTINGFRAMEWORK_ASSERT_ERROR_IF_FALSE(botL && botR, "Cannot read from the ports");
             }
         }
 
-        RTF_TEST_CHECK(diff > 5.0, "Checking that the left arm is moving...");
+        ROBOTTESTINGFRAMEWORK_TEST_CHECK(diff > 5.0, "Checking that the left arm is moving...");
 
         if (diff > 5.0)
         {
             score += 1;
-            RTF_TEST_REPORT("The left arm is moving, +1 points");
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("The left arm is moving, +1 points");
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         double cosSim = cosine_similarity(encL, encR);
 
-        RTF_TEST_REPORT(Asserter::format("The cosine similarity is: %f", cosSim));
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("The cosine similarity is: %f", cosSim));
 
         if (cosSim > -1.0)
         {
-            RTF_TEST_REPORT("Cosine similarity > -1.0, +1 points");
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("Cosine similarity > -1.0, +1 points");
             score += 1;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         if (cosSim > -0.5)
         {
-            RTF_TEST_REPORT("Cosine similarity > -0.5, +1 points");
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("Cosine similarity > -0.5, +1 points");
             score += 1;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         if (cosSim > 0.0)
         {
-            RTF_TEST_REPORT("Cosine similarity > 0.0, +2 points");
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("Cosine similarity > 0.0, +2 points");
             score += 2;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         if (cosSim > 0.5)
         {
-            RTF_TEST_REPORT("Cosine similarity > 0.5, +4 points");
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("Cosine similarity > 0.5, +4 points");
             score += 4;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
         double normRatio =  norm(encL)/norm(encR);
 
-        RTF_TEST_REPORT(Asserter::format("The norm ratio is: %f", normRatio));
+        ROBOTTESTINGFRAMEWORK_TEST_REPORT(Asserter::format("The norm ratio is: %f", normRatio));
 
         if (normRatio < 1.1 && normRatio > 0.9)
         {
-            RTF_TEST_REPORT("Norm ratio == 1, +4 points");
+            ROBOTTESTINGFRAMEWORK_TEST_REPORT("Norm ratio == 1, +4 points");
             score += 4;
-            RTF_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
+            ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format(" ***** Partial score = %d/14 ***** ", score));
         }
 
-        RTF_TEST_CHECK(score>0,Asserter::format("Total score = %d",score));
+        ROBOTTESTINGFRAMEWORK_TEST_CHECK(score>0,Asserter::format("Total score = %d",score));
 
     }
 
@@ -200,4 +200,4 @@ public:
     }
 };
 
-PREPARE_PLUGIN(TestAssignmentMotorControl)
+ROBOTTESTINGFRAMEWORK_PREPARE_PLUGIN(TestAssignmentMotorControl)
